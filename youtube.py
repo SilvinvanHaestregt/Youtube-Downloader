@@ -8,51 +8,21 @@ count = 0
 firstChoice = str(input("1. Video's\n2. Livestream's\n3. YouTube kanaal\nKies je optie: "))
 os.system("cls")
 
-def downloadVideo(resolution, audio_only):
-    yt.streams.filter(res=resolution, only_audio=audio_only).download(output_path = f"YouTube/Video's/{yt.video_id}/", filename = "video.mp3")
-
 if (firstChoice == "1"):
     choice = str(input("1. Een video\n2. Lijst met video's\nKies je optie: "))
     os.system("cls")
     if (choice == "1"):
         while True:
-            yt = input("Voer een link in: ")
+            yt = str(input("Voer een link in: "))
             try:
                 yt = YouTube(yt)
                 break
             except:
                 print("Dit is geen youtube video link!")
         while True:
-            choice = input("1. Alleen audio\n2. Met beeld\nKies je optie: ")
-            if (choice == "1"):
-                audio_only = True
-            try:
-                print("Proberen om video te downloaden in 1080p")
-                downloadVideo("1080p", audio_only)
-                break
-            except:
-                print("Het is niet gelukt om de video in 1080p te downloaden we proberen nu 720p")
-            try:
-                downloadVideo("720p", audio_only)
-                print("Succesvol de video gedownload in 720p")
-                break
-            except:
-                print("Het is niet gelukt om de video in 720p te downloaden we proberen nu 480p")
-            try:
-                downloadVideo("480p", audio_only)
-                print("Succesvol de video gedownload in 480p")
-                break
-            except:
-                print("Het is niet gelukt om de video in 480p te downloaden we proberen nu 360p")
-            try:
-                downloadVideo("380p", audio_only)
-                print("Succesvol de video gedownload in 360p")
-                break
-            except:
-                print("Het is niet gelukt om de video in 360p we stoppen nu het programma.")
-                break
-        if not os.path.exists(f"YouTube/Video's/{yt.video_id}/info.txt"):
-            os.makedirs(f"YouTube/Video's/{yt.video_id}/info.txt")
+            print("Proberen om video te downloaden in 1080p")
+            yt.streams.get_highest_resolution().download(output_path = f"YouTube/Video's/{yt.video_id}/", filename = "video.mp4")
+            break
         infoFile = open(f"YouTube/Video's/{yt.video_id}/info.txt", "w", encoding="utf-8")
         infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
         infoFile.close()
@@ -67,7 +37,7 @@ if (firstChoice == "1"):
                 except:
                     print("Dit is geen youtube video link!")
                 else:
-                    yt.streams.filter(res="720p").first().download(output_path = f"YouTube/Video's/{yt.video_id}/", filename = "video.mp4")
+                    yt.streams.get_highest_resolution.first().download(output_path = f"YouTube/Video's/{yt.video_id}/", filename = "video.mp4")
                     infoFile = open(f"YouTube/Video's/{yt.video_id}/info.txt", "w", encoding="utf-8")
                     infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
                     infoFile.close()
