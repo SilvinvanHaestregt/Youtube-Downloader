@@ -1,5 +1,6 @@
 from pytube import YouTube
 from pytube import Channel
+from pytube import Search
 from time import sleep
 import os
 os.system("cls")
@@ -10,13 +11,11 @@ isRunning = True
 def continueEnter():
     choice = input("Druk op enter om door te gaan.")
     os.system("cls")
-        
-
 
 while (isRunning):
     
     #First option menu
-    firstChoice = str(input("1. Video's\n2. YouTube kanaal\nZ. Sluit het programma\nKies je optie: "))
+    firstChoice = str(input("1. Video's\n2. YouTube kanaal\n3. Search engine\nZ. Sluit het programma\nKies je optie: "))
 
     # Clear the screen
     os.system("cls")
@@ -127,5 +126,16 @@ while (isRunning):
                             video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/{video.video_id}", filename = "video.mp4")
 
             continueEnter()
+    elif (firstChoice == "3"):
+        print("Dit komt later nog!")
+        continueEnter()
+        continue
+        search = str(input("Wat wil je opzoeken: "))
+        while True:
+            try:
+                search = Search(search)
+                break
+            except:
+                print("Dit is geen geldige zoek term")
     elif (firstChoice == "Z" or "z"):
         isRunning = False
