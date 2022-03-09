@@ -10,6 +10,8 @@ isRunning = True
 def continueEnter():
     choice = input("Druk op enter om door te gaan.")
     os.system("cls")
+        
+
 
 while (isRunning):
     
@@ -56,45 +58,64 @@ while (isRunning):
             continueEnter()
     # Second Choice
     elif (firstChoice == "2"):
-        choice = str(input("1. Een kanaal\n2. Lijst met kanalen\n3. Kanaal informatie\nKies je optie: "))
+        choice = str(input("1. Een kanaal\n2. Lijst met kanalen\nKies je optie: "))
         os.system("cls")
         if (choice == "1"):
             # Try to convert de input string into a Channel if this doesn't work it gives an error message and you can try again
             while True:
-                c = input("Voer een link in: ")
+                channel = str(input("Voer een link in: "))
                 try:
-                    Channel(c)
-                    break
+                    channel = Channel(channel)
                 except:
                     print("Dit is geen kanaal link!")
-                os.system("cls")
-            choice = str(input("1. Alle video's downloaden\n2. Url van alle video's\nKies je optie: "))
+                else:
+                    os.system("cls")
+                    choice = str(input("1. Alle video's downloaden\n2. Url van alle video's\n3. Kanaal informatie\nKies je optie: "))
+                    os.system("cls")
+                    if (choice == "1"):
+                        videos = 0
+                        for video in channel.videos:
+                            videos += 1
+                        for video in channel.videos:
+                            video.streams.first().download(output_path = f"YouTube/Channels/{channel.channel_name}/{video.video_id}/", filename = "video.mp4")
+                            infoFile = open(f"YouTube/Channels/{channel.channel_name}/{video.video_id}/info.txt", "w", encoding="utf-8")
+                            infoFile.write("Title: " + str(video.title) + "\nViews: " + str(video.views) + "\nDescription: " + str(video.description) + "\nKeywords: " + str(video.keywords) + "\nLength: " + str(video.length) + "\nMetadata: " + str(video.metadata) + "\nRating: " + str(video.rating) + "\nVideo info " + str(video.vid_info))
+                            infoFile.close()
+                            videos -= 1
+                            if (videos > 0):
+                                print(f"Succesvol gedownload! Nog {videos} video's te gaan.")
+                            else:
+                                print("Alle video's zijn succesvol gedownload!")
+                        continueEnter()
+                        break
+                    elif (choice == "2"):
+                        # This doesn't work yet it gives an error: AttributeError: 'str' object has no attribute 'video_url'
+                        for video in channel.video_urls:
+                            print(video)
+                        continueEnter()
+                        break
+                    elif (choice == "3"):
+                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/"):
+                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/")
+                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/channel.txt", "w", encoding="utf-8")
+                        infoFile.write("Name: " + str(channel.channel_name) + "\nId: " + str(channel.channel_id))
+                        infoFile.close()
+                        print("Succesvol alle kanaal data opgehaald!")
+                        continueEnter()
+        elif (choice == "2"):
+            choice = str(input("1. Alle video's downloaden\n2. Url van alle video's\n3. Kanaal informatie\nKies je optie: "))
             os.system("cls")
-            if (choice == "1"):
-                videos = 0
-                for video in c.videos:
-                    videos += 1
-                for video in c.video:
-                    video.streams.first().download(output_path = f"YouTube/Channels/{c.channel_name}/{video.video_id}/", filename = "video.mp4")
-                    infoFile = open(f"YouTube/Channels/{c.channel_name}/{video.video_id}/info.txt", "w", encoding="utf-8")
-                    infoFile.write("Title: " + str(video.title) + "\nViews: " + str(video.views) + "\nDescription: " + str(video.description) + "\nKeywords: " + str(video.keywords) + "\nLength: " + str(video.length) + "\nMetadata: " + str(video.metadata) + "\nRating: " + str(video.rating) + "\nVideo info " + str(video.vid_info))
-                    infoFile.close()
-                    videos -= 1
-                    if (videos > 0):
-                        print(f"Succesvol gedownload! Nog {videos} video's te gaan.")
-                    else:
-                        print("Alle video's zijn succesvol gedownload!")
-                continueEnter()
-            elif (choice == "2"):
-                # This doesn't work yet it gives an error: AttributeError: 'str' object has no attribute 'video_url'
-                for url in c.video_url:
-                    print(url)
-            elif (choice == "3"):
-                if not os.path.exists(f"YouTube/Channels/{c.channel_name}/"):
-                    os.makedirs(f"YouTube/Channels/{c.channel_name}/")
-                infoFile = open(f"YouTube/Channels/{c.channel_name}/channel.txt", "w", encoding="utf-8")
-                infoFile.write("Name: " + str(c.channel_name) + "\nId: " + str(c.channel_id))
-                infoFile.close()
-                print("Succesvol alle kanaal data opgehaald!")
-                continueEnter()
+            channelList = open("channel.txt", "r", encoding="utf-8")
+            for line in channelList:
+                print(line)
+                try:
+                    channel = Channel(line)
+                except:
+                    print("Het programma wordt gestopt omdat er een ongeldige link in het tekst bestand zit.")
+                    break
+                else:
+                    if (choice == "1"):
+                        for video in channel.videos:
+                            video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/{video.video_id}", filename = "video.mp4")
 
+            continueEnter()
