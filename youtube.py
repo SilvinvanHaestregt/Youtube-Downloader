@@ -31,7 +31,7 @@ if (firstChoice == "1"):
             if (count < 40):
                 yt = YouTube(line)
                 yt.streams.filter(res="720p").first().download(output_path = f"../Video's/YouTube/{yt.video_id}/", filename = "video.mp4")
-                infoFile = open(f"../Video's/YouTube/{yt.video_id}/info.txt", "w", encoding="utf-8")
+                infoFile = open(f"Video's/YouTube/{yt.video_id}/info.txt", "w", encoding="utf-8")
                 infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description))
                 infoFile.close()
                 line = listFile.readline()
@@ -48,9 +48,23 @@ elif (firstChoice == "3"):
         os.system("cls")
         choice = input("1. Alle video's downloaden\n2. Url van alle video's\nKies je optie: ")
         if (choice == "1"):
+            videos = 0
+            for video in c.videos:
+                videos += 1
             for video in c.videos:
                 # Zet hier het download path neer zie line 33
-                video.streams.first().download()
+                video.streams.first().download(output_path = f"Video's/YouTube/Channels/{c.channel_name}/{video.video_id}/", filename = "video.mp4")
+                infoFile = open(f"Video's/YouTube/Channels/{c.channel_name}/{video.video_id}/info.txt", "w", encoding="utf-8")
+                infoFile.write("Title: " + str(video.title) + "\nViews: " + str(video.views) + "\nDescription: " + str(video.description))
+                infoFile.close()
+                videos -= 1
+                if (videos > 0):
+                    print(f"Succesvol gedownload! Nog {videos} video's te gaan.")
+                else:
+                    print("Alle video's zijn succesvol gedownload!")
         elif (choice == "2"):
             for url in c.video_urls:
                 print(url)
+        elif (choice == "3"):
+            infoFile = open(f"Channels/{c.channel_name}/", "w", encoding="utf-8")
+            infoFile.write("Name: " + str(c.channel_name) + "\nId: " + str(c.channel_id))
