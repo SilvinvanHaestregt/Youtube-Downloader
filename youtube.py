@@ -16,7 +16,7 @@ def continueEnter():
 while (isRunning):
     
     #First option menu
-    firstChoice = str(input("1. Video's\n2. YouTube kanaal\nKies je optie: "))
+    firstChoice = str(input("1. Video's\n2. YouTube kanaal\nZ. Sluit het programma\nKies je optie: "))
 
     # Clear the screen
     os.system("cls")
@@ -89,9 +89,17 @@ while (isRunning):
                         continueEnter()
                         break
                     elif (choice == "2"):
-                        # This doesn't work yet it gives an error: AttributeError: 'str' object has no attribute 'video_url'
                         for video in channel.video_urls:
                             print(video)
+                        choice = input("1. Schrijf alle urls naar een bestand\n2. Contiune\nKies je optie: ")
+                        if (choice == "1"):
+                            if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/"):
+                                os.makedirs(f"YouTube/Channels/{channel.channel_name}/")
+                            urlFile = open(f"YouTube/Channels/{channel.channel_name}/url.txt", "w", encoding="utf-8")
+                            for video in channel.video_urls:
+                                urlFile.write(video + "\n")
+                            urlFile.close()
+                        os.system("cls")
                         continueEnter()
                         break
                     elif (choice == "3"):
@@ -119,3 +127,5 @@ while (isRunning):
                             video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/{video.video_id}", filename = "video.mp4")
 
             continueEnter()
+    elif (firstChoice == "Z" or "z"):
+        isRunning = False
