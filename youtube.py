@@ -32,14 +32,23 @@ while (isRunning):
                     break
                 except:
                     print("Dit is geen youtube video link!")
-            while True:
+            os.system("cls")
+            choice = str(input("1. Alleen geluid\n2. Beeld en geluid\nKies je optie: "))
+            os.system("cls")
+            if (choice == "1"):
+                print("Audio wordt gedownload")
+                yt.streams.get_audio_only().download(output_path = f"YouTube/Audio/{yt.video_id}/", filename = "audio.mp3")
+                print("Audio is succesvol gedownload in het mapje " + f"YouTube/Audio/{yt.video_id}/audio.mp3")
+                infoFile = open(f"YouTube/Audio/{yt.video_id}/info.txt", "w", encoding="utf-8")
+                infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
+            elif (choice == "2"):
                 print("Video wordt gedownload...")
                 yt.streams.get_highest_resolution().download(output_path = f"YouTube/Video's/{yt.video_id}/", filename = "video.mp4")
+                print("De video is succesvol gedownload in het mapje " + f"YouTube/Video's/{yt.video_id}/video.mp4")
                 infoFile = open(f"YouTube/Video's/{yt.video_id}/info.txt", "w", encoding="utf-8")
                 infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
-                infoFile.close()
-                continueEnter()
-                break
+            infoFile.close()
+            continueEnter()
         elif (choice == "2"):
             listFile = open("listfile.txt", "r", encoding="utf-8")
             for line in listFile:
