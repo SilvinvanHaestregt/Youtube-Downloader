@@ -1,6 +1,7 @@
 from pytube import YouTube
 from pytube import Channel
 from pytube import Search
+from pytube import Playlist
 from time import sleep
 import os
 os.system("cls")
@@ -15,7 +16,7 @@ def continueEnter():
 while (isRunning):
     
     #First option menu
-    firstChoice = str(input("1. Video's\n2. YouTube kanaal\n3. Search engine\nZ. Sluit het programma\nKies je optie: "))
+    firstChoice = str(input("1. Video's\n2. YouTube kanaal\n3. Playlist - Deze doet het nog niet\n4. Search engine - Deze doet het nog niet\nZ. Sluit het programma\nKies je optie: "))
 
     # Clear the screen
     os.system("cls")
@@ -127,7 +128,13 @@ while (isRunning):
 
             continueEnter()
     elif (firstChoice == "3"):
-        print("Dit komt later nog!")
+        print("Dit werkt nog niet dit komt later pas!")
+        continueEnter()
+        continue
+        choice = str(input("1. Playlist downloaden\nKies je optie: "))
+        os.system("cls")
+    elif (firstChoice == "4"):
+        print("Dit werkt nog niet dit komt later pas!")
         continueEnter()
         continue
         search = str(input("Wat wil je opzoeken: "))
