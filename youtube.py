@@ -1,7 +1,12 @@
+from bs4 import BeautifulSoup
 from pytube import YouTube
 from pytube import Channel
 from pytube import Search
 from pytube import Playlist
+from tqdm import tqdm
+from time import sleep
+import requests
+from lxml import html
 import os
 os.system("cls")
 count = 0
@@ -37,12 +42,16 @@ while (isRunning):
             if (choice == "1"):
                 print("Audio wordt gedownload")
                 yt.streams.get_audio_only().download(output_path = f"YouTube/Audio/{yt.video_id}/", filename = "audio.mp3")
+                for i in tqdm(range (100), desc="Loaading..."):
+                    sleep(0.1)
                 print("Audio is succesvol gedownload in het mapje " + f"YouTube/Audio/{yt.video_id}/audio.mp3")
                 infoFile = open(f"YouTube/Audio/{yt.video_id}/info.txt", "w", encoding="utf-8")
                 infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
             elif (choice == "2"):
                 print("Video wordt gedownload...")
                 yt.streams.get_highest_resolution().download(output_path = f"YouTube/Video's/{yt.video_id}/", filename = "video.mp4")
+                for i in tqdm(range (100), desc="Loaading..."):
+                    sleep(0.1)
                 print("De video is succesvol gedownload in het mapje " + f"YouTube/Video's/{yt.video_id}/video.mp4")
                 infoFile = open(f"YouTube/Video's/{yt.video_id}/info.txt", "w", encoding="utf-8")
                 infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
@@ -59,6 +68,8 @@ while (isRunning):
                     break
                 else:
                     yt.streams.get_highest_resolution().download(output_path = f"YouTube/Video's/List/{yt.video_id}/", filename = "video.mp4")
+                    for i in tqdm(range (100), desc="Loaading..."):
+                        sleep(0.1)
                     infoFile = open(f"YouTube/Video's/List/{yt.video_id}/info.txt", "w", encoding="utf-8")
                     infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description))
                     infoFile.close()
@@ -86,6 +97,8 @@ while (isRunning):
                             videos += 1
                         for video in channel.videos:
                             video.streams.first().download(output_path = f"YouTube/Channels/{channel.channel_name}/{video.video_id}/", filename = "video.mp4")
+                            for i in tqdm(range (100), desc="Loaading..."):
+                                sleep(0.1)
                             infoFile = open(f"YouTube/Channels/{channel.channel_name}/{video.video_id}/info.txt", "w", encoding="utf-8")
                             infoFile.write("Title: " + str(video.title) + "\nViews: " + str(video.views) + "\nDescription: " + str(video.description) + "\nKeywords: " + str(video.keywords) + "\nLength: " + str(video.length) + "\nMetadata: " + str(video.metadata) + "\nRating: " + str(video.rating) + "\nVideo info " + str(video.vid_info))
                             infoFile.close()
@@ -111,13 +124,19 @@ while (isRunning):
                         continueEnter()
                         break
                     elif (choice == "3"):
-                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/"):
-                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/")
-                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/channel.txt", "w", encoding="utf-8")
+                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/Info"):
+                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/Info")
+                        url = "https://socialblade.com/youtube/c/" + channel.channel_name
+                        print(url)
+                        r = requests.get(url)
+                        html_soup_object = BeautifulSoup(r.content, "html.parser")
+                        find_by_class = html_soup_object.find_all()
+                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.txt", "w", encoding="utf-8")
                         infoFile.write("Name: " + str(channel.channel_name) + "\nId: " + str(channel.channel_id))
                         infoFile.close()
                         print("Succesvol alle kanaal data opgehaald!")
                         continueEnter()
+                        break
         elif (choice == "2"):
             choice = str(input("1. Alle video's downloaden\n2. Url van alle video's\n3. Kanaal informatie\nKies je optie: "))
             os.system("cls")
@@ -132,7 +151,10 @@ while (isRunning):
                 else:
                     if (choice == "1"):
                         for video in channel.videos:
-                            video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/{video.video_id}", filename = "video.mp4")
+                            video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/Video's/{video.video_id}", filename = "video.mp4")
+                            for i in tqdm(range (100), desc="Downloading..."):
+                                sleep(0.01)
+                            os.system("cls")
 
             continueEnter()
     elif (firstChoice == "3"):
@@ -153,4 +175,5 @@ while (isRunning):
             except:
                 print("Dit is geen geldige zoek term")
     elif (firstChoice == "Z" or "z"):
+        print("Bedankt voor het gebruiken van mijn programma, we gaan het nu sluiten!")
         isRunning = False
