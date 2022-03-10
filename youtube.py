@@ -2,7 +2,6 @@ from pytube import YouTube
 from pytube import Channel
 from pytube import Search
 from pytube import Playlist
-from time import sleep
 import os
 os.system("cls")
 count = 0
