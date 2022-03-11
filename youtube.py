@@ -126,11 +126,6 @@ while (isRunning):
                     elif (choice == "3"):
                         if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/Info"):
                             os.makedirs(f"YouTube/Channels/{channel.channel_name}/Info")
-                        url = "https://socialblade.com/youtube/c/" + channel.channel_name
-                        print(url)
-                        r = requests.get(url)
-                        html_soup_object = BeautifulSoup(r.content, "html.parser")
-                        find_by_class = html_soup_object.find_all()
                         infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.txt", "w", encoding="utf-8")
                         infoFile.write("Name: " + str(channel.channel_name) + "\nId: " + str(channel.channel_id))
                         infoFile.close()
