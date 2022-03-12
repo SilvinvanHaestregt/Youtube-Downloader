@@ -1,8 +1,23 @@
-# Youtube Downloader
-
 # Table of contents
 * [What does this program do?](#about)
 * [How to add your own google API key](#api)
+
+
+## Technologies
+
+Project is created with:
+* Python 3.10.2
+* Visual studio code
+* pytube
+
+
+## Setup
+```
+$ cd Youtube-Downloader
+$ pip3 install requirements.txt
+$ python3 youtube_en.py
+```
+
 
 # What does this program do?
 
@@ -66,7 +81,6 @@ Copy and paste your API key to the api.json file. Now you can start your program
 
 Good luck!
 
-# Youtube Downloader
 
 # Table of contents
 * [Wat doet dit programma?](#about)
