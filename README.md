@@ -1,5 +1,9 @@
 # Youtube Downloader
 
+# Table of contents
+* [What does this program do?](#about)
+* [How to add your own google API key](#api)
+
 # What does this program do?
 
 With this program it is possible to download one or more youtube videos. You can choose to download 1 video, but you can also choose to download a whole list of youtube videos by simply copying the link of the video in video.txt. This file can be found in the Lists folder.
@@ -63,8 +67,12 @@ Copy and paste your API key to the api.json file. Now you can start your program
 Good luck!
 
 # Youtube Downloader
+
+# Table of contents
+* [Wat doet dit programma?](#about)
+* [Hoe voeg je je eigen google API key toe?](#api)
  
-# Wat is dit voor programma?
+# Wat doet dit programma?
 
 Met dit programma is het mogelijk om eeen of meerdere youtube video's te downloaden. Je kunt kiezen om 1 video te downloaden, maar je kunt er ook voor kiezen om een hele lijst aan youtube video's te downloaden door simpel weg de link van de video in video.txt te kopiëren. Dit bestand is te vinden in de map Lists.
 
