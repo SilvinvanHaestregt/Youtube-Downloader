@@ -6,11 +6,11 @@ from time import sleep
 import googleapiclient.discovery
 import json
 import os
+import psutil
 os.system("cls")
 count = 0
 
 isRunning = True
-
 
 # Load the .json file
 jsonFile = open("api.json", "r")
@@ -123,17 +123,28 @@ while (isRunning):
                         for video in channel.videos:
                             videos += 1
                         for video in channel.videos:
-                            video.streams.first().download(output_path = f"YouTube/Channels/{channel.channel_name}/{video.video_id}/", filename = "video.mp4")
-                            for i in tqdm(range (100), desc="Loaading..."):
-                                sleep(0.1)
-                            infoFile = open(f"YouTube/Channels/{channel.channel_name}/{video.video_id}/info.txt", "w", encoding="utf-8")
-                            infoFile.write("Title: " + str(video.title) + "\nViews: " + str(video.views) + "\nDescription: " + str(video.description) + "\nKeywords: " + str(video.keywords) + "\nLength: " + str(video.length) + "\nMetadata: " + str(video.metadata) + "\nRating: " + str(video.rating) + "\nVideo info " + str(video.vid_info))
-                            infoFile.close()
-                            videos -= 1
-                            if (videos > 0):
-                                print(f"Succesvol gedownload! Nog {videos} video's te gaan.")
+                            # Get file size of the video
+                            fileSizeBytes = video.streams.get_highest_resolution().filesize
+                            fileSizeGB = fileSizeBytes / 1073741824
+                            # Get the free diskspace
+                            objDisk = psutil.disk_usage("/")
+                            diskFreeSpace = objDisk.free / 1024.0 ** 3 - 20
+                            print(diskFreeSpace)
+                            if not (fileSizeGB < diskFreeSpace):
+                                print("Je hebt niet genoeg ruimte meer op je systeem!")
+                                break
                             else:
-                                print("Alle video's zijn succesvol gedownload!")
+                                video.streams.first().download(output_path = f"YouTube/Channels/{channel.channel_name}/{video.video_id}/", filename = "video.mp4")
+                                for i in tqdm(range (100), desc="Loaading..."):
+                                    sleep(0.1)
+                                infoFile = open(f"YouTube/Channels/{channel.channel_name}/{video.video_id}/info.txt", "w", encoding="utf-8")
+                                infoFile.write("Title: " + str(video.title) + "\nViews: " + str(video.views) + "\nDescription: " + str(video.description) + "\nKeywords: " + str(video.keywords) + "\nLength: " + str(video.length) + "\nMetadata: " + str(video.metadata) + "\nRating: " + str(video.rating) + "\nVideo info " + str(video.vid_info))
+                                infoFile.close()
+                                videos -= 1
+                                if (videos > 0):
+                                    print(f"Succesvol gedownload! Nog {videos} video's te gaan.")
+                                else:
+                                    print("Alle video's zijn succesvol gedownload!")
                         continueEnter()
                         break
                     elif (choice == "2"):
@@ -178,10 +189,20 @@ while (isRunning):
                 else:
                     if (choice == "1"):
                         for video in channel.videos:
-                            video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/Video's/{video.video_id}", filename = "video.mp4")
-                            for i in tqdm(range (100), desc="Downloading..."):
-                                sleep(0.01)
-                            os.system("cls")
+                            fileSizeBytes = video.streams.get_highest_resolution().filesize
+                            fileSizeGB = fileSizeBytes / 1073741824
+                            # Get the free diskspace
+                            objDisk = psutil.disk_usage("/")
+                            diskFreeSpace = objDisk.free / 1024.0 ** 3 - 20
+                            print(diskFreeSpace)
+                            if not (fileSizeGB < diskFreeSpace):
+                                print("Je hebt niet genoeg ruimte meer op je systeem!")
+                                break
+                            else:
+                                video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/Video's/{video.video_id}", filename = "video.mp4")
+                                for i in tqdm(range (100), desc="Downloading..."):
+                                    sleep(0.01)
+                                os.system("cls")
                     elif (choice == "2"):
                         for video in channel.video_urls:
                             print(video)
