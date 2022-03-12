@@ -1,5 +1,7 @@
 # Table of contents
-* [What does this program do?](#about)
+* [Technologies](#technologies)
+* [General info](#general-info)
+* [Setup](#setup)
 * [How to add your own google API key](#api)
 
 
@@ -11,15 +13,7 @@ Project is created with:
 * pytube
 
 
-## Setup
-```
-$ cd Youtube-Downloader
-$ pip3 install requirements.txt
-$ python3 youtube_en.py
-```
-
-
-# What does this program do?
+# General info
 
 With this program it is possible to download one or more youtube videos. You can choose to download 1 video, but you can also choose to download a whole list of youtube videos by simply copying the link of the video in video.txt. This file can be found in the Lists folder.
 
@@ -30,6 +24,13 @@ You can also get information about a certain youtube channel. The total number o
 Below is explained how you can get it.
 
 It is also possible to support me by subscribing to my patreon where you will get exclusive content and tutorials.
+
+## Setup
+```
+$ cd Youtube-Downloader
+$ pip3 install requirements.txt
+$ python3 youtube_en.py
+```
 
 # How to add your own google API key
 
