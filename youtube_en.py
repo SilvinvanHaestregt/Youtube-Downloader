@@ -78,7 +78,7 @@ while (isRunning):
             infoFile.close()
             continueEnter()
         elif (choice == "2"):
-            listFile = open("Lists/listfile.txt", "r", encoding="utf-8")
+            listFile = open("Lists/video.txt", "r", encoding="utf-8")
             for line in listFile:
                 print(line)
                 try:

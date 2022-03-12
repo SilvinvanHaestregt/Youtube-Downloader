@@ -2,7 +2,7 @@
 
 # What does this program do?
 
-With this program it is possible to download one or more youtube videos. You can choose to download 1 video, but you can also choose to download a whole list of youtube videos by simply copying the link of the video in listfile.txt.
+With this program it is possible to download one or more youtube videos. You can choose to download 1 video, but you can also choose to download a whole list of youtube videos by simply copying the link of the video in listfile.txt. This file can be found in the Lists folder.
 
 It is also possible to download all videos from a specified youtube channel. The option is also present to have a list of youtube channels, from which all videos are downloaded. Note that this can take up a lot of space on your PC so pay attention to this.
 
@@ -64,7 +64,7 @@ Good luck!
  
 # Wat is dit voor programma?
 
-Met dit programma is het mogelijk om eeen of meerdere youtube video's te downloaden. Je kunt kiezen om 1 video te downloaden, maar je kunt er ook voor kiezen om een hele lijst aan youtube video's te downloaden door simpel weg de link van de video in listfile.txt te kopiëren.
+Met dit programma is het mogelijk om eeen of meerdere youtube video's te downloaden. Je kunt kiezen om 1 video te downloaden, maar je kunt er ook voor kiezen om een hele lijst aan youtube video's te downloaden door simpel weg de link van de video in listfile.txt te kopiëren. Dit bestand is te vinden in de map Lists.
 
 Het is ook mogelijk om alle video's van een opgegeven youtube kanaal te downloaden. Hierbij is de optie ook aanwezig om een lijst van youtube kanalen te hebben, waarvan dan alle video's worden gedownload. Let wel op dat dit heel veel ruimte in kan nemen op je pc let hier dus goed op.
 
