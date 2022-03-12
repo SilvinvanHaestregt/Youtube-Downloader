@@ -2,6 +2,8 @@
  
 # Wat is dit voor programma?
 
+Met dit programma is het mogelijk om eeen of meerdere youtube video's te downloaden. Je kunt kiezen om 1 video te downloaden, maar je kunt er ook voor kiezen om een hele lijst aan youtube video's te downloaden door simpel weg de link van de video in listfile.txt te kopiëren.
+
 Met dit programma is het mogelijk om een youtube video te downloaden doormiddel van de link te kopiëren en te plakken wanneer dat gevraagd wordt. 
 
 Het is ook mogelijk om meerdere video's te downloaden door die in het bestandje listfile.txt te zetten. Je kan maar 1 link per regel neerzetten!

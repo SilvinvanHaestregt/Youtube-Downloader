@@ -17,16 +17,28 @@ jsonFile = open("api.json", "r")
 jsonContent = jsonFile.read()
 jsonList = json.loads(jsonContent)
 
+# Set api_key to the api key in api.json
 api_key = jsonList['api_key']
-
-# This is for developing purposes only
+# The import is for purposes only don't worry if you don't have the key file.
 if (api_key == "YOUR_API_KEY"):
     try:
         from key import api_key
     except:
         print("Je moet nog je API key toevoegen in api.json")
+# Set api_service_name to the api name in api.json
 api_service_name = jsonList['api_service_name']
+# Check if the name of the api is 'youtube'
+if (api_service_name != "youtube"):
+    print("Het lijkt erop dat je de naam hebt veranderd in api.json. Controleer of de naam 'youtube' is, als dit niet het geval is veranderd het dan naar 'youtube'.")
+    print("Het lijkt erop dat je iets verkeerds hebt veranderd in api.json! Controleer dit.")
+    quit()
+
+# Set api_version to the api version in api.json
 api_version = jsonList['api_version']
+# Check if the api version is v3
+if (api_version != "v3"):
+    print("Het lijkt erop dat je de versie hebt veranderd in api.json. Controleer of de versie v3 is, als dit niet jet geval is veranderd het dan naar v3.")
+    quit()
 
 def continueEnter():
     choice = input("Druk op enter om door te gaan.")
