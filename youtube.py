@@ -21,7 +21,10 @@ api_key = jsonList['api_key']
 
 # This is for developing purposes only
 if (api_key == "YOUR_API_KEY"):
-    from key import api_key
+    try:
+        from key import api_key
+    except:
+        print("Je moet nog je API key toevoegen in api.json")
 api_service_name = jsonList['api_service_name']
 api_version = jsonList['api_version']
 
