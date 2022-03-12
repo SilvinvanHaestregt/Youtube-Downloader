@@ -162,17 +162,36 @@ while (isRunning):
                         continueEnter()
                         break
                     elif (choice == "3"):
-                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/Info"):
-                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/Info")
+                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/Information"):
+                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/Information")
                         youtube = googleapiclient.discovery.build(
                             api_service_name, api_version, developerKey = api_key)
-                        request = youtube.channels().list(part="statistics", id=channel.channel_id)
+
+                        # First request statistics
+                        request = youtube.channels().list(part="statistics", id= channel.channel_id)
                         response = request.execute()
                         print(f"Channel name: {channel.channel_name}\nChannel id: {response['items'][0]['id']}\nAmount of views: {response['items'][0]['statistics']['viewCount']}\nAmount of subcribers: {response['items'][0]['statistics']['subscriberCount']}\nAmount of video's: {response['items'][0]['statistics']['videoCount']}")
                         json_data = json.dumps(response, indent = 4)
-                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.json", "w", encoding="utf-8")
-                        infoFile.write(json_data)
-                        infoFile.close()
+                        statisticsFile = open(f"YouTube/Channels/{channel.channel_name}/Information/statistics.json", "w", encoding="utf-8")
+                        statisticsFile.write(json_data + "\n")
+                        statisticsFile.close()
+
+                        # Second request branding
+                        request = youtube.channels().list(part="brandingSettings", id= channel.channel_id)
+                        response = request.execute()
+                        json_data = json.dumps(response, indent = 4)
+                        brandingFile = open(f"YouTube/Channels/{channel.channel_name}/Information/branding.json", "w", encoding="utf-8")
+                        brandingFile.write(json_data + "\n")
+                        brandingFile.close()
+
+                        # Third request contentOwnerDetails
+                        request = youtube.channels().list(part="contentOwnerDetails", id = channel.channel_id)
+                        response = request.execute()
+                        json_data = json.dumps(response, indent = 4)
+                        contentOwnerFile = open(f"YouTube/Channels/{channel.channel_name}/Information/branding.json", "w", encoding="utf-8")
+                        contentOwnerFile.write(json_data)
+                        contentOwnerFile.close()
+
                         print("Succesvol alle kanaal data opgehaald!")
                         continueEnter()
                         break
@@ -227,7 +246,7 @@ while (isRunning):
                         response = request.execute()
                         print(f"Channel name: {channel.channel_name}\nChannel id: {response['items'][0]['id']}\nAmount of views: {response['items'][0]['statistics']['viewCount']}\nAmount of subcribers: {response['items'][0]['statistics']['subscriberCount']}\nAmount of video's: {response['items'][0]['statistics']['videoCount']}")
                         json_data = json.dumps(response, indent = 4)
-                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.json", "w", encoding="utf-8")
+                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/Information/channel.json", "w", encoding="utf-8")
                         infoFile.write(json_data)
                         infoFile.close()
             if (choice == "1"):
