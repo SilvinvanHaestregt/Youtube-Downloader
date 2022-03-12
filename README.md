@@ -11,7 +11,7 @@ Project is created with:
 * Python 3.10.2
 * Visual studio code
 * pytube
-* Google API
+* YouTube API v3
 
 # General info
 
