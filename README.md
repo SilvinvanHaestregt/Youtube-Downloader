@@ -27,9 +27,7 @@ Geef je project vervolgens een naam. Bijvoorbeeld: "YouTube-API" (zonder de quot
 Open nu je project door op de zelfde knop te drukken waarmee je het venster krijg waar je je project hebt aangemaakt. Klik op de naam van je project en dan rechts onder op open.
 
 Klik nu op de knopt "ENABLE APIS AND SERVICES".
-
 ![Fourth Image](/images/fourthimage.png)
-
 
 Zoek nu op het woord YouTube.
 
@@ -42,12 +40,11 @@ Je wordt nu terug gestuurd naar je project waarbij je vervolgens op de knop "CRE
 Nu moet je selecteren welke API je gaat gebruiken. Klik op het dropdown menu en druk op je toetsenbord de "y" in. Klik daarna op de optie "YouTube Data API v3.
 
 Nu krijg je de 2 opties namelijk: User data en Public data. Klik op Public data en daarna op NEXT.
-
 ![Seventh Image](/images/seventhimage.png)
 
 Nu krijg je je API Key te zien.
 
-LET OP! Deel nooit je API key als je er geen grenzen op hebt gezet!
+# LET OP! Deel nooit je API key als je er geen grenzen op hebt gezet!
 
 Kopieer en plak je API key nu naar de api.json file. Nu kan je je programma starten!
 
