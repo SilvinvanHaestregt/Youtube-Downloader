@@ -2,11 +2,10 @@ from bs4 import BeautifulSoup
 from pytube import YouTube
 from pytube import Channel
 from pytube import Search
-from pytube import Playlist
 from tqdm import tqdm
 from time import sleep
-import requests
-from lxml import html
+import googleapiclient.discovery
+from key import api_service_name, api_key, api_version
 import os
 os.system("cls")
 count = 0
@@ -20,7 +19,7 @@ def continueEnter():
 while (isRunning):
     
     #First option menu
-    firstChoice = str(input("1. Video's\n2. YouTube kanaal\n3. Playlist - Deze doet het nog niet\n4. Search engine - Deze doet het nog niet\nZ. Sluit het programma\nKies je optie: "))
+    firstChoice = str(input("1. Video's\n2. YouTube kanaal\n3. Playlist - Deze doet het nog niet\n4. Search engine - Deze doet het nog niet\n5. Upload video naar youtube\nZ. Sluit het programma\nKies je optie: "))
 
     # Clear the screen
     os.system("cls")
@@ -126,6 +125,11 @@ while (isRunning):
                     elif (choice == "3"):
                         if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/Info"):
                             os.makedirs(f"YouTube/Channels/{channel.channel_name}/Info")
+                        youtube = googleapiclient.discovery.build(
+                            api_service_name, api_version, developerKey = api_key)
+                        request = youtube.channels().list(part="statistics", id=channel.channel_id)
+                        response = request.execute()
+                        print(response)
                         infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.txt", "w", encoding="utf-8")
                         infoFile.write("Name: " + str(channel.channel_name) + "\nId: " + str(channel.channel_id))
                         infoFile.close()
