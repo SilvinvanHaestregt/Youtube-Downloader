@@ -1,16 +1,29 @@
-from bs4 import BeautifulSoup
 from pytube import YouTube
 from pytube import Channel
 from pytube import Search
 from tqdm import tqdm
 from time import sleep
 import googleapiclient.discovery
-from key import api_service_name, api_key, api_version
+import json
 import os
 os.system("cls")
 count = 0
 
 isRunning = True
+
+
+# Load the .json file
+jsonFile = open("api.json", "r")
+jsonContent = jsonFile.read()
+jsonList = json.loads(jsonContent)
+
+api_key = jsonList['api_key']
+
+# This is for developing purposes only
+if (api_key == "YOUR_API_KEY"):
+    from key import api_key
+api_service_name = jsonList['api_service_name']
+api_version = jsonList['api_version']
 
 def continueEnter():
     choice = input("Druk op enter om door te gaan.")
@@ -129,9 +142,10 @@ while (isRunning):
                             api_service_name, api_version, developerKey = api_key)
                         request = youtube.channels().list(part="statistics", id=channel.channel_id)
                         response = request.execute()
-                        print(response)
-                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.txt", "w", encoding="utf-8")
-                        infoFile.write("Name: " + str(channel.channel_name) + "\nId: " + str(channel.channel_id))
+                        print(f"Kanaal naam: {channel.channel_name}\nKanaal id: {response['items'][0]['id']}\nAantal views: {response['items'][0]['statistics']['viewCount']}\nAantal abonnees: {response['items'][0]['statistics']['subscriberCount']}\nAantal video's: {response['items'][0]['statistics']['videoCount']}")
+                        json_data = json.dumps(response, indent = 4)
+                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.json", "w", encoding="utf-8")
+                        infoFile.write(json_data)
                         infoFile.close()
                         print("Succesvol alle kanaal data opgehaald!")
                         continueEnter()
@@ -154,7 +168,31 @@ while (isRunning):
                             for i in tqdm(range (100), desc="Downloading..."):
                                 sleep(0.01)
                             os.system("cls")
-
+                    elif (choice == "2"):
+                        for video in channel.video_urls:
+                            print(video)
+                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/"):
+                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/")
+                        urlFile = open(f"YouTube/Channels/{channel.channel_name}/url.txt", "w", encoding="utf-8")
+                        for video in channel.video_urls:
+                            urlFile.write(video + "\n")
+                        urlFile.close()
+                        os.system("cls")
+                    elif (choice == "3"):
+                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/Info"):
+                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/Info")
+                        youtube = googleapiclient.discovery.build(
+                            api_service_name, api_version, developerKey = api_key)
+                        request = youtube.channels().list(part="statistics", id=channel.channel_id)
+                        response = request.execute()
+                        print(f"Kanaal naam: {channel.channel_name}\nKanaal id: {response['items'][0]['id']}\nAantal views: {response['items'][0]['statistics']['viewCount']}\nAantal abonnees: {response['items'][0]['statistics']['subscriberCount']}\nAantal video's: {response['items'][0]['statistics']['videoCount']}")
+                        json_data = json.dumps(response, indent = 4)
+                        infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.json", "w", encoding="utf-8")
+                        infoFile.write(json_data)
+                        infoFile.close()
+                        sleep(0.5)
+                        os.system("cls")
+            print("Succesvol alle data van alle kanalen opgehaald!")
             continueEnter()
     elif (firstChoice == "3"):
         print("Dit werkt nog niet dit komt later pas!")
