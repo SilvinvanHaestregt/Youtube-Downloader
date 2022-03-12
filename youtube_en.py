@@ -84,7 +84,7 @@ while (isRunning):
             infoFile.close()
             continueEnter()
         elif (choice == "2"):
-            listFile = open("listfile.txt", "r", encoding="utf-8")
+            listFile = open("Lists/listfile.txt", "r", encoding="utf-8")
             for line in listFile:
                 print(line)
                 try:
@@ -178,7 +178,7 @@ while (isRunning):
         elif (choice == "2"):
             choice = str(input("1. Download all the video's\n2. Youtube video url's\n3. Channel information\nYour choice: "))
             os.system("cls")
-            channelList = open("channel.txt", "r", encoding="utf-8")
+            channelList = open("Lists/channel.txt", "r", encoding="utf-8")
             videos = 0
             for line in channelList:
                 try:

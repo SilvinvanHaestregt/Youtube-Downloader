@@ -85,7 +85,7 @@ while (isRunning):
             infoFile.close()
             continueEnter()
         elif (choice == "2"):
-            listFile = open("listfile.txt", "r", encoding="utf-8")
+            listFile = open("Lists/listfile.txt", "r", encoding="utf-8")
             for line in listFile:
                 print(line)
                 try:
@@ -135,7 +135,7 @@ while (isRunning):
                                 break
                             else:
                                 video.streams.first().download(output_path = f"YouTube/Channels/{channel.channel_name}/{video.video_id}/", filename = "video.mp4")
-                                for i in tqdm(range (100), desc="Loaading..."):
+                                for i in tqdm(range (100), desc="Loading..."):
                                     sleep(0.1)
                                 infoFile = open(f"YouTube/Channels/{channel.channel_name}/{video.video_id}/info.txt", "w", encoding="utf-8")
                                 infoFile.write("Title: " + str(video.title) + "\nViews: " + str(video.views) + "\nDescription: " + str(video.description) + "\nKeywords: " + str(video.keywords) + "\nLength: " + str(video.length) + "\nMetadata: " + str(video.metadata) + "\nRating: " + str(video.rating) + "\nVideo info " + str(video.vid_info))
@@ -179,7 +179,7 @@ while (isRunning):
         elif (choice == "2"):
             choice = str(input("1. Alle video's downloaden\n2. Url van alle video's\n3. Kanaal informatie\nKies je optie: "))
             os.system("cls")
-            channelList = open("channel.txt", "r", encoding="utf-8")
+            channelList = open("Lists/channel.txt", "r", encoding="utf-8")
             videos = 0
             for line in channelList:
                 try:
