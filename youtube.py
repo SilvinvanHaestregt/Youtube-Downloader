@@ -152,9 +152,9 @@ while (isRunning):
                             print(video)
                         choice = input("1. Schrijf alle urls naar een bestand\n2. Contiune\nKies je optie: ")
                         if (choice == "1"):
-                            if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/"):
-                                os.makedirs(f"YouTube/Channels/{channel.channel_name}/")
-                            urlFile = open(f"YouTube/Channels/{channel.channel_name}/url.txt", "w", encoding="utf-8")
+                            if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/url/"):
+                                os.makedirs(f"YouTube/Channels/{channel.channel_name}/url/")
+                            urlFile = open(f"YouTube/Channels/{channel.channel_name}/url/url.txt", "w", encoding="utf-8")
                             for video in channel.video_urls:
                                 urlFile.write(video + "\n")
                             urlFile.close()
@@ -180,6 +180,7 @@ while (isRunning):
             choice = str(input("1. Alle video's downloaden\n2. Url van alle video's\n3. Kanaal informatie\nKies je optie: "))
             os.system("cls")
             channelList = open("channel.txt", "r", encoding="utf-8")
+            videos = 0
             for line in channelList:
                 try:
                     channel = Channel(line)
@@ -189,30 +190,34 @@ while (isRunning):
                 else:
                     if (choice == "1"):
                         for video in channel.videos:
+                            videos += 1
+                        print(f"Het downloaden van de video's van {channel.channel_name} gaat beginnen.")
+                        for video in channel.videos:
                             fileSizeBytes = video.streams.get_highest_resolution().filesize
                             fileSizeGB = fileSizeBytes / 1073741824
                             # Get the free diskspace
                             objDisk = psutil.disk_usage("/")
                             diskFreeSpace = objDisk.free / 1024.0 ** 3 - 20
-                            print(diskFreeSpace)
                             if not (fileSizeGB < diskFreeSpace):
                                 print("Je hebt niet genoeg ruimte meer op je systeem!")
                                 break
                             else:
                                 video.streams.get_highest_resolution().download(output_path= f"YouTube/Channels/{channel.channel_name}/Video's/{video.video_id}", filename = "video.mp4")
-                                for i in tqdm(range (100), desc="Downloading..."):
-                                    sleep(0.01)
-                                os.system("cls")
+                                videos -= 1
+                                if (videos == 0):
+                                    print(f"Succesvol gedownload! Nog {videos} video's te gaan.")
+                                else:
+                                    print("Alle video's zijn succesvol gedownload!")
+                                    break     
                     elif (choice == "2"):
                         for video in channel.video_urls:
                             print(video)
-                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/"):
-                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/")
-                        urlFile = open(f"YouTube/Channels/{channel.channel_name}/url.txt", "w", encoding="utf-8")
+                        if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/url/"):
+                            os.makedirs(f"YouTube/Channels/{channel.channel_name}/url/")
+                        urlFile = open(f"YouTube/Channels/{channel.channel_name}/url/url.txt", "w", encoding="utf-8")
                         for video in channel.video_urls:
                             urlFile.write(video + "\n")
                         urlFile.close()
-                        os.system("cls")
                     elif (choice == "3"):
                         if not os.path.exists(f"YouTube/Channels/{channel.channel_name}/Info"):
                             os.makedirs(f"YouTube/Channels/{channel.channel_name}/Info")
@@ -225,31 +230,19 @@ while (isRunning):
                         infoFile = open(f"YouTube/Channels/{channel.channel_name}/Info/channel.json", "w", encoding="utf-8")
                         infoFile.write(json_data)
                         infoFile.close()
-                        sleep(0.5)
-                        os.system("cls")
-            print("Succesvol alle data van alle kanalen opgehaald!")
+            if (choice == "1"):
+                print("Alle video's zijn succesvol gedownload!")
+            elif (choice == "2"):
+                print("Alle video links zijn succesvol naar een bestand toegeschreven!")
+            elif (choice == "3"):
+                print("Succesvol alle data van alle kanalen opgehaald!")
             continueEnter()
     elif (firstChoice == "3"):
-        print("Dit werkt nog niet dit komt later pas!")
         continueEnter()
-        continue
-        choice = str(input("1. Playlist downloaden\nKies je optie: "))
-        os.system("cls")
     elif (firstChoice == "4"):
-        print("Dit werkt nog niet dit komt later pas!")
         continueEnter()
-        continue
-        search = str(input("Wat wil je opzoeken: "))
-        while True:
-            try:
-                search = Search(search)
-                break
-            except:
-                print("Dit is geen geldige zoek term")
     elif (firstChoice == "5"):
-        print("Dit werkt nog niet dit komt later pas!")
         continueEnter()
-        continue
     elif (firstChoice == "Z" or "z"):
         print("Bedankt voor het gebruiken van mijn programma, we gaan het nu sluiten!")
         isRunning = False
