@@ -4,9 +4,11 @@
 
 Met dit programma is het mogelijk om eeen of meerdere youtube video's te downloaden. Je kunt kiezen om 1 video te downloaden, maar je kunt er ook voor kiezen om een hele lijst aan youtube video's te downloaden door simpel weg de link van de video in listfile.txt te kopiëren.
 
-Met dit programma is het mogelijk om een youtube video te downloaden doormiddel van de link te kopiëren en te plakken wanneer dat gevraagd wordt. 
+Het is ook mogelijk om alle video's van een opgegeven youtube kanaal te downloaden. Hierbij is de optie ook aanwezig om een lijst van youtube kanalen te hebben, waarvan dan alle video's worden gedownload. Let wel op dat dit heel veel ruimte in kan nemen op je pc let hier dus goed op.
 
-Het is ook mogelijk om meerdere video's te downloaden door die in het bestandje listfile.txt te zetten. Je kan maar 1 link per regel neerzetten!
+Je kan ook informatie krijgen over een bepaald youtube kanaal. Het totaal aantal views, subscribers en het totaal aantal video's dat het kanaal heeft. Om dit te kunnen gebruiken heb je we een google API key nodig.
+
+Hieronder wordt uitgelegd hoe je die kan bemachtigen.
 
 # Hoe voeg je je eigen google API key toe?
 
