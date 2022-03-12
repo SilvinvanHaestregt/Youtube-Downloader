@@ -59,5 +59,5 @@ Kopieer en plak je API key nu naar de api.json file. Nu kan je je programma star
 
 Veel succes!
 
-patreon: Silvin van Haestregt
+[patreon]: Silvin van Haestregt
 
