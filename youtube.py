@@ -170,7 +170,6 @@ while (isRunning):
             os.system("cls")
             channelList = open("channel.txt", "r", encoding="utf-8")
             for line in channelList:
-                print(line)
                 try:
                     channel = Channel(line)
                 except:
