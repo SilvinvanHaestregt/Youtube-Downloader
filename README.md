@@ -11,7 +11,7 @@ Project is created with:
 * Python 3.10.2
 * Visual studio code
 * pytube
-
+* Google API
 
 # General info
 
@@ -29,8 +29,9 @@ It is also possible to support me by subscribing to my patreon where you will ge
 ```
 $ cd Youtube-Downloader
 $ pip3 install requirements.txt
-$ python3 youtube_en.py
+$ python3 youtube_en.py or python3 youtube_nl.py
 ```
+
 
 # How to add your own google API key
 
