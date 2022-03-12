@@ -22,7 +22,18 @@ if (api_key == "YOUR_API_KEY"):
     try:
         from key import api_key
     except:
-        print("Je moet nog je API key toevoegen in api.json")
+        choice = input("Wil je doorgaan zonder API key?\n1. Ja\n2. Nee\nKies je optie: ")
+        if (choice == "1"):
+            print("Het programma gaat door zonder API key!")
+            sleep(2)
+            os.system("cls")
+        elif (choice == "2"):
+            print("Je moet nog je API key toevoegen in api.json!")
+            sleep(2)
+            os.system("cls")
+            quit()
+        elif (choice != "1", "2"):
+            quit()
 # Set api_service_name to the api name in api.json
 api_service_name = jsonList['api_service_name']
 # Check if the name of the api is 'youtube'
