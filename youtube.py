@@ -47,7 +47,7 @@ def continueEnter():
 while (isRunning):
     
     #First option menu
-    firstChoice = str(input("1. Video's\n2. YouTube kanaal\n3. Playlist - Deze doet het nog niet\n4. Search engine - Deze doet het nog niet\n5. Upload video naar youtube\nZ. Sluit het programma\nKies je optie: "))
+    firstChoice = str(input("1. Video's\n2. YouTube kanaal\n3. Playlist - Deze doet het nog niet\n4. Search engine - Deze doet het nog niet\n5. Upload video naar youtube - Deze doet het nog niet\nZ. Sluit het programma\nKies je optie: "))
 
     # Clear the screen
     os.system("cls")
@@ -246,6 +246,10 @@ while (isRunning):
                 break
             except:
                 print("Dit is geen geldige zoek term")
+    elif (firstChoice == "5"):
+        print("Dit werkt nog niet dit komt later pas!")
+        continueEnter()
+        continue
     elif (firstChoice == "Z" or "z"):
         print("Bedankt voor het gebruiken van mijn programma, we gaan het nu sluiten!")
         isRunning = False
