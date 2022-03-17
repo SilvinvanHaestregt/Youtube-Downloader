@@ -104,7 +104,7 @@ while (isRunning):
                 json_data = json.dumps(response, indent = 4)
                 if not os.path.exists(f"YouTube/Video's/{yt.video_id}/"):
                     os.makedirs(f"YouTube/Video's/{yt.video_id}/")
-                commentsFile = open(f"YouTube/Video's/{yt.video_id}/statistics.json", "w", encoding="utf-8")
+                commentsFile = open(f"YouTube/Video's/{yt.video_id}/comments.json", "w", encoding="utf-8")
                 commentsFile.write(json_data + "\n")
                 commentsFile.close()
                 print("The comments of the video have been succesfully installed!")
