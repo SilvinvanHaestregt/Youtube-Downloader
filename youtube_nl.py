@@ -72,7 +72,7 @@ while (isRunning):
                 except:
                     print("Dit is geen youtube video link!")
             os.system("cls")
-            choice = str(input("1. Alleen geluid\n2. Beeld en geluid\nKies je optie: "))
+            choice = str(input("1. Alleen geluid\n2. Beeld en geluid\n3. Comments\nKies je optie: "))
             os.system("cls")
             if (choice == "1"):
                 print("Audio wordt gedownload")

@@ -72,7 +72,7 @@ while (isRunning):
                 except:
                     print("This is not a youtube video link!")
             os.system("cls")
-            choice = str(input("1. Only sound\n2. image and sound\nYour choice: "))
+            choice = str(input("1. Only sound\n2. image and sound\n3. Comments\nYour choice: "))
             os.system("cls")
             if (choice == "1"):
                 print("The sound is being downloaded")
