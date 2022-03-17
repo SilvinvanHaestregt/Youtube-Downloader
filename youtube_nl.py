@@ -80,13 +80,34 @@ while (isRunning):
                 print("Audio is succesvol gedownload in het mapje " + f"YouTube/Audio/{yt.video_id}/audio.mp3")
                 infoFile = open(f"YouTube/Audio/{yt.video_id}/info.txt", "w", encoding="utf-8")
                 infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
+                infoFile.close()
             elif (choice == "2"):
                 print("Video wordt gedownload...")
                 yt.streams.get_highest_resolution().download(output_path = f"YouTube/Video's/{yt.video_id}/", filename = "video.mp4")
                 print("De video is succesvol gedownload in het mapje " + f"YouTube/Video's/{yt.video_id}/video.mp4")
                 infoFile = open(f"YouTube/Video's/{yt.video_id}/info.txt", "w", encoding="utf-8")
                 infoFile.write("Title: " + str(yt.title) + "\nViews: " + str(yt.views) + "\nDescription: " + str(yt.description) + "\nKeywords: " + str(yt.keywords) + "\nLength: " + str(yt.length) + "\nMetadata: " + str(yt.metadata) + "\nRating: " + str(yt.rating) + "\nVideo info " + str(yt.vid_info))
-            infoFile.close()
+                infoFile.close()
+            elif (choice == "3"):
+                youtube = googleapiclient.discovery.build(
+                    api_service_name, api_version, developerKey = api_key)
+
+                request = youtube.commentThreads().list(
+                    part="id, snippet, replies",
+                    maxResults=100,
+                    order="time",
+                    videoId=yt.video_id
+                )
+
+                response = request.execute()
+
+                json_data = json.dumps(response, indent = 4)
+                if not os.path.exists(f"YouTube/Video's/{yt.video_id}/"):
+                    os.makedirs(f"YouTube/Video's/{yt.video_id}/")
+                commentsFile = open(f"YouTube/Video's/{yt.video_id}/statistics.json", "w", encoding="utf-8")
+                commentsFile.write(json_data + "\n")
+                commentsFile.close()
+                print("De comments van de video zijn succesvol gedownload!")
             continueEnter()
         elif (choice == "2"):
             listFile = open("Lists/video.txt", "r", encoding="utf-8")
