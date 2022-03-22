@@ -277,12 +277,35 @@ while (isRunning):
             elif (choice == "3"):
                 print("Succesfully gather all of the data from all the channels!")
             continueEnter()
-    elif (firstChoice == "3"):
-        continueEnter()
-    elif (firstChoice == "4"):
-        continueEnter()
-    elif (firstChoice == "5"):
-        continueEnter()
+    #elif (firstChoice == "3"):
+        #youtube = googleapiclient.discovery.build(
+            #api_service_name, api_version, developerKey = api_key
+        #)
+
+        #request = youtube.search().list(
+            #part="snippet",
+            #maxResults=50,
+            #q="traditional native american chanting music"
+        #)
+
+        #response = request.execute()
+
+        #json_data = json.dumps(response, indent=4)
+        #searchFile = open("Lists/video.txt", "w", encoding="utf-8")
+        #for i in range(0, 51):
+            #searchFile.write(f"https://www.youtube.com/watch?v={response['items'][i]['id']['videoId']}\n")
+            #print(f"Title: {response['items'][i]['snippet']['title']} Link: https://www.youtube.com/watch?v={response['items'][i]['id']['videoId']}")
+            # url = response['items'][i]['snippet']['thumbnails']['high']['url']
+            # thumbnail = requests.get(url)
+            # if not os.path.exists(f"Testing/Json/{response['items'][i]['id']['videoId']}/"):
+                # os.makedirs(f"Testing/Json/{response['items'][i]['id']['videoId']}/")
+            # open(f"Testing/Json/{response['items'][i]['id']['videoId']}/{response['items'][i]['id']['videoId']}.jpg", "wb").write(thumbnail.content)
+
+        #if not os.path.exists("Testing/Json/"):
+            #os.makedirs("Testing/Json/")
+        #searchFileJson = open("Testing/Json/search.json", "w", encoding="utf-8")
+        #searchFileJson.write(json_data)
+        #searchFileJson.close()
     elif (firstChoice == "Z" or "z"):
         print("Thanks for using my program!")
         isRunning = False
