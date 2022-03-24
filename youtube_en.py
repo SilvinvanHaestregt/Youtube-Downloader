@@ -133,7 +133,7 @@ while (isRunning):
                 print("Succesfully gather all of the data from all the channels!")
             continueEnter()
     elif (firstChoice == "3"):
-        choice = str(input("1. Show data from specific file\n2. Run a search query\nYour choice: "))
+        choice = str(input("1. Show data from specific file\n2. Run a search query\n3. Delete file\nYour choice: "))
         os.system("cls")
         if (choice == "1"):
             file = str(input("File name: "))
@@ -151,6 +151,10 @@ while (isRunning):
                 else:
                     print("This number is to big!")
             youtube.searchEngine.searchEngine(api_service_name, api_version, api_key, searchQuery, amountOfResults)
+        elif (choice == "3"):
+            file = str(input("File name: "))
+            os.system("cls")
+            youtube.searchEngine.searchEngineDeleteFile(file)
         continueEnter()
     elif (firstChoice == "Z" or "z"):
         print("Thanks for using my program!")

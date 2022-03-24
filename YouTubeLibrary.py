@@ -202,3 +202,11 @@ class searchEngine:
                     print("\n")
         jsonFile.close()
         jsonFileAmount.close()
+    
+    def searchEngineDeleteFile(file):
+        isFile = os.path.isfile(f"Search/{file}.json")
+        isFileAmount = os.path.isfile(f"Search/{file}.amount.json")
+        if (isFile == True):
+            if (isFileAmount == True):
+                os.remove(f"Search/{file}.json")
+                os.remove(f"Search/{file}.amount.json")
