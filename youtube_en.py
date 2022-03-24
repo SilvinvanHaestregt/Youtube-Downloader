@@ -142,7 +142,6 @@ while (isRunning):
         elif (choice == "2"):
             searchQuery = str(input("What do you want to search: ")) 
             os.system("cls")
-
             while True:
                 amountOfResults = int(input("How many results do you want: "))
                 if (amountOfResults < 1001):
