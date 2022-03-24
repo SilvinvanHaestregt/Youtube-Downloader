@@ -153,18 +153,52 @@ class Channel:
                 infoFile = open(f"YouTube/Channels/{channel.channel_name}/Information/channel.json", "w", encoding="utf-8")
                 infoFile.write(json_data)
                 infoFile.close()
+class searchEngine:
 
-def searchEngine(api_service_name, api_version, api_key, searchQuery):
-    youtube = googleapiclient.discovery.build(
-        api_service_name, api_version, developerKey = api_key
-    )
+    def searchEngine(api_service_name, api_version, api_key, searchQuery, amountOfResults):
+        youtube = googleapiclient.discovery.build(
+            api_service_name, api_version, developerKey = api_key
+        )
 
-    request = youtube.search().list(
-        part="snippet",
-        maxResults=50,
-        q=searchQuery
-    )
+        request = youtube.search().list(
+            part="snippet",
+            maxResults=amountOfResults,
+            q=searchQuery
+        )
 
-    response = request.execute()
+        response = request.execute()
 
-    json_data = json.dumps(response, indent=4)
+        json_data = json.dumps(response, indent=4)
+        print(json_data)
+        if not os.path.exists("Search"):
+            os.makedirs("Search")
+        jsonFile = open(f"Search/{searchQuery}.json", "w", encoding="utf-8")
+        jsonFile.write(json_data)
+        jsonFile.close()
+
+        amountOfItems = {
+            "numberOfItems" : amountOfResults 
+        }
+        json_data = json.dumps(amountOfItems, indent = 4)
+        jsonFileAmount = open(f"Search/{searchQuery}.amount.json", "w", encoding="utf-8")
+        jsonFileAmount.write("\n" + json_data)
+        jsonFileAmount.close()
+
+    def searchEngineFile(file):
+        isFile = os.path.isfile(f"Search/{file}.json")
+        isFileAmount = os.path.isfile(f"Search/{file}.amount.json")
+        if (isFile == True):
+            if (isFileAmount == True):
+                jsonFile = open(f"Search/{file}.json", "r")
+                jsonFileAmount = open(f"Search/{file}.amount.json", "r")
+                jsonData = json.load(jsonFile)
+                jsonDataAmount = json.load(jsonFileAmount)
+                amount = jsonDataAmount['numberOfItems']
+                for i in range(0, amount):
+                    print(f"Link: https://www.youtube.com/watch?v={jsonData['items'][i]['id']['videoId']}")
+                    print(f"Published at: {jsonData['items'][i]['snippet']['publishedAt']}")
+                    print(f"Title: {jsonData['items'][i]['snippet']['title']}")
+                    print(f"Channel title: {jsonData['items'][i]['snippet']['channelTitle']}")
+                    print("\n")
+        jsonFile.close()
+        jsonFileAmount.close()

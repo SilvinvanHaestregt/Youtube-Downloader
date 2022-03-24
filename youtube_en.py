@@ -54,7 +54,7 @@ def continueEnter():
 while (isRunning):
     
     #First option menu
-    firstChoice = str(input("1. Video's\n2. YouTube channels\n3. Search Engine - This one is not available\n5. Upload a video to YouTube - This one is not available\nZ. Quit the app\nYour choice: "))
+    firstChoice = str(input("1. Video's\n2. YouTube channels\n3. Search Engine\nZ. Quit the app\nYour choice: "))
 
     # Clear the screen
     os.system("cls")
@@ -133,16 +133,25 @@ while (isRunning):
                 print("Succesfully gather all of the data from all the channels!")
             continueEnter()
     elif (firstChoice == "3"):
-        searchQuery = str(input("What do you want to search: ")) 
+        choice = str(input("1. Show data from specific file\n2. Run a search query\nYour choice: "))
         os.system("cls")
+        if (choice == "1"):
+            file = str(input("File name: "))
+            os.system("cls")
+            youtube.searchEngine.searchEngineFile(file)
+        elif (choice == "2"):
+            searchQuery = str(input("What do you want to search: ")) 
+            os.system("cls")
 
-        while True:
-            amountOfResults = int(input("How many results do you want"))
-            if (amountOfResults < 1001):
-                break
-            else:
-                print("This number is to big!")
-        youtube.searchEngine(api_service_name, api_version, api_key, searchQuery)
+            while True:
+                amountOfResults = int(input("How many results do you want: "))
+                if (amountOfResults < 1001):
+                    os.system("cls")
+                    break
+                else:
+                    print("This number is to big!")
+            youtube.searchEngine.searchEngine(api_service_name, api_version, api_key, searchQuery, amountOfResults)
+        continueEnter()
     elif (firstChoice == "Z" or "z"):
         print("Thanks for using my program!")
         isRunning = False
