@@ -1,6 +1,7 @@
 import json
 import googleapiclient.discovery
 import os
+from googlesearch import search
 from pytube import YouTube
 import psutil
 
@@ -183,6 +184,19 @@ class searchEngine:
         jsonFileAmount = open(f"Search/{searchQuery}.amount.json", "w", encoding="utf-8")
         jsonFileAmount.write("\n" + json_data)
         jsonFileAmount.close()
+
+        choice = str(input("1. Write links to file\n2. Continue\nYour choice: "))
+        if (choice == "1"):
+            linkFile = open(f"Search/{searchQuery}.txt", "w", encoding="utf-8")
+            jsonFileAmount = open(f"Search/{searchQuery}.amount.json", "r")
+            jsonDataAmount = json.load(jsonFileAmount)
+            amount = jsonDataAmount['numberOfItems']
+            jsonFile = open(f"Search/{searchQuery}.json", "r")
+            jsonFileAmount = open(f"Search/{searchQuery}.amount.json", "r")
+            jsonData = json.load(jsonFile)
+            for i in range(0, amount):
+                linkFile.write(f"https://www.youtube.com/watch?v={jsonData['items'][i]['id']['videoId']}\n")
+            
 
     def searchEngineFile(file):
         isFile = os.path.isfile(f"Search/{file}.json")
