@@ -87,8 +87,16 @@ while (isRunning):
 
             continueEnter()
         elif (choice == "2"):
-
-            youtube.Video.downloadVideoList(yt)
+            listFile = open("Lists/video.txt", "r", encoding="utf-8")
+            for line in listFile:
+                print(line)
+                try:
+                    yt = YouTube(line)
+                except:
+                    print("Het programma wordt gestopt omdat er een ongeldige link in het text bestand zit.")
+                    break
+                else:
+                    youtube.Video.downloadVideoList(yt)
 
             continueEnter()
     # Second Choice
